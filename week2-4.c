@@ -5,18 +5,17 @@
 
 int main()
 {
-    char name[20];  
-    printf("What is your name?\n");
-    fgets(name, 20, stdin); /* gets user input */
-    name[strcspn(name, "\n")] = 0;
-   
+    int n;
+    int sum = 0;
+    printf("Please enter a number");
+    scanf("%d", &n);  /* gets number input, specifies format, assigns to n*/
 
-    if ((strcmp(name, "Alice")==0) || (strcmp(name, "Bob")==0))
+    for (int i = 1; i<=n; i++)
     {
-        printf("Hello %s\n", name);
-    } else
-    {
-        printf("I dont know you\n"); 
+       sum +=i;
     }
+
+    printf("The sum of 1 to %d was %d\n", n, sum);
+
     return 0;
 }
