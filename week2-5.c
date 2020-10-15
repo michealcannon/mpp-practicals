@@ -1,4 +1,4 @@
-/* ask user for number n, prints sum of 1, 2..n*/
+/* ask user for number n, prints sum of 1, 2..n only for multiples of 3 and 5*/
 
 #include <stdio.h>
 #include <string.h>
