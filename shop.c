@@ -16,6 +16,7 @@ struct Customer{
     char* name;
     double budget;
     struct ProductStock shoppingList[10];
+    int index;
 };
 
 struct Shop{
@@ -26,28 +27,37 @@ struct Shop{
 
 void printProduct(struct Product p)
 {
-    printf("---------------------------------------\n");
+    
     printf("PRODUCT NAME: %s  \n PRODUCT PRICE: %.2f \n", p.name, p.price);
     printf("---------------------------------------\n");
 }
 
 void printCustomer(struct Customer c)
 {
-    printf("---------------------------------------\n");
+    
     printf("CUSTOMER NAME: %s  \n CUSTOMER BUDGET: %.2f \n", c.name, c.budget);
     printf("---------------------------------------\n");
+    for (int i = 0; i<c.index; i++){
+        printProduct(c.shoppingList[i].product);
+        printf("%s ORDERS %d OF ABOVE PRODUCT\n", c.name, c.shoppingList[i].quantity);
+    }
 }
 
 int main(void)
 {
     struct Customer dominic = {"Dominic", 100.0};
-    printCustomer(dominic);
+    // printCustomer(dominic);
 
     struct Product coke = {"can coke", 1.10};
-    printProduct(coke);
+    struct Product bread = {"bread", 0.7};
+    // printProduct(coke);
 
     struct ProductStock cokeStock = {coke, 20};
-    printf("The shop has %d of the product %s\n", cokeStock.quantity, cokeStock.product.name);
+    struct ProductStock breadStock = {bread, 2};
+    dominic.shoppingList[dominic.index++] = cokeStock;
+    dominic.shoppingList[dominic.index++] = breadStock;
+    printCustomer(dominic);
+    // printf("The shop has %d of the product %s\n", cokeStock.quantity, cokeStock.product.name);
 
     return 0;
 }
