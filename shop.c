@@ -1,19 +1,27 @@
 #include <stdio.h>
 #include <string.h>
 
-struct Customer{
-char* name;
-double budget;
-};
 
 struct Product{
-char* name;
-double price;
+    char* name;
+    double price;
 };
 
 struct ProductStock{
-struct Product product;
-int quantity;
+    struct Product product;
+    int quantity;
+};
+
+struct Customer{
+    char* name;
+    double budget;
+    struct ProductStock shoppingList[10];
+};
+
+struct Shop{
+    double cash;
+    struct ProductStock stock[20];
+
 };
 
 int main(void)
