@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-
+#include <stdlib.h>
 
 struct Product{
     char* name;
@@ -22,6 +22,7 @@ struct Customer{
 struct Shop{
     double cash;
     struct ProductStock stock[20];
+    int index;
 
 };
 
@@ -39,27 +40,46 @@ void printCustomer(struct Customer c)
     printf("---------------------------------------\n");
     for (int i = 0; i<c.index; i++){
         printProduct(c.shoppingList[i].product);
-        printf("%s ORDERS %d OF ABOVE PRODUCT\n", c.name, c.shoppingList[i].quantity);
+        printf("%sORDERS %d OF ABOVE PRODUCT\n", c.name, c.shoppingList[i].quantity);
         double cost = c.shoppingList[i].quantity * c.shoppingList[i].product.price;
         printf("The cost to %s will be %.2f\n", c.name, cost);
     }
 }
 
+void createAndStockShop(){
+    struct Shop shop = {200};
+    FILE * fp;
+    char * line = NULL;
+    size_t len = 0;
+    ssize_t read;
+
+    fp = fopen("stock.csv", "r");
+    if (fp == NULL)
+        exit(EXIT_FAILURE);
+
+    while ((read = getline(&line, &len, fp)) != -1) {
+        // printf("Retrieved line of length %zu:\n", read);
+        // printf("%s IS A LINE", line);
+        char *name = strtok(line,",");
+        printf("NAME OF PRODUCT:%s\n", name);
+    }
+
+}
 int main(void)
 {
-    struct Customer dominic = {"Dominic", 100.0};
+    // struct Customer dominic = {"Dominic", 100.0};
+    // // printCustomer(dominic);
+
+    // struct Product coke = {"can coke", 1.10};
+    // struct Product bread = {"bread", 0.7};
+    // // printProduct(coke);
+
+    // struct ProductStock cokeStock = {coke, 20};
+    // struct ProductStock breadStock = {bread, 2};
+    // dominic.shoppingList[dominic.index++] = cokeStock;
+    // dominic.shoppingList[dominic.index++] = breadStock;
     // printCustomer(dominic);
-
-    struct Product coke = {"can coke", 1.10};
-    struct Product bread = {"bread", 0.7};
-    // printProduct(coke);
-
-    struct ProductStock cokeStock = {coke, 20};
-    struct ProductStock breadStock = {bread, 2};
-    dominic.shoppingList[dominic.index++] = cokeStock;
-    dominic.shoppingList[dominic.index++] = breadStock;
-    printCustomer(dominic);
     // printf("The shop has %d of the product %s\n", cokeStock.quantity, cokeStock.product.name);
-
+    createAndStockShop();
     return 0;
 }
