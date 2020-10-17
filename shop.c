@@ -40,6 +40,8 @@ void printCustomer(struct Customer c)
     for (int i = 0; i<c.index; i++){
         printProduct(c.shoppingList[i].product);
         printf("%s ORDERS %d OF ABOVE PRODUCT\n", c.name, c.shoppingList[i].quantity);
+        double cost = c.shoppingList[i].quantity * c.shoppingList[i].product.price;
+        printf("The cost to %s will be %.2f\n", c.name, cost);
     }
 }
 
